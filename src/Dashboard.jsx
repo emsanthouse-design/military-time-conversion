@@ -139,7 +139,58 @@ function Loaded({ responses, rawKey }) {
           ))}
         </div>
       </Section>
+
+      <DangerZone rawKey={rawKey} count={responses.length} />
     </Shell>
+  )
+}
+
+// Wipe-everything control. Two confirmations, then POSTs to /api/reset with the
+// dashboard key. Use once after testing, before the real run.
+function DangerZone({ rawKey, count }) {
+  const [busy, setBusy] = useState(false)
+  const [msg, setMsg] = useState('')
+
+  const clearAll = async () => {
+    if (
+      !window.confirm(
+        `Permanently delete all ${count} response(s)? This cannot be undone.`
+      )
+    ) {
+      return
+    }
+    if (window.prompt('Type CLEAR to confirm.') !== 'CLEAR') {
+      setMsg('Cancelled. Nothing was deleted.')
+      return
+    }
+    setBusy(true)
+    setMsg('')
+    try {
+      const res = await fetch(`/api/reset?key=${encodeURIComponent(rawKey)}`, {
+        method: 'POST',
+      })
+      const body = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(body.error || `failed (${res.status})`)
+      setMsg(`Deleted ${body.deleted} response(s). Reloading...`)
+      setTimeout(() => window.location.reload(), 800)
+    } catch (err) {
+      setMsg(`Could not clear data: ${err.message}`)
+      setBusy(false)
+    }
+  }
+
+  return (
+    <section className="dash-section danger-zone">
+      <h2>Danger zone</h2>
+      <p>
+        Clear every stored response to start the real run with clean data. This
+        is permanent and cannot be undone.
+      </p>
+      <button className="danger-btn" onClick={clearAll} disabled={busy}>
+        {busy ? 'Clearing...' : 'Clear all responses'}
+      </button>
+      {msg && <p className="danger-msg">{msg}</p>}
+    </section>
   )
 }
 
