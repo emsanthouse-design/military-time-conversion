@@ -1,11 +1,13 @@
-import { Avatar, House } from '../components/Sprites.jsx'
+import { Avatar, Castle } from '../components/Sprites.jsx'
 
-// Screen 1. Every control maps to a stored segmentation field.
+// Screen 1. Every control maps to a stored segmentation field. Medieval flavor
+// on the labels, but the underlying meaning (rate, household, size, tenure,
+// move-desire) stays clear.
 const HOUSEHOLD = [1, 2, 3, 4, '5+']
 const HOMES = [
-  { key: 'cozy', label: 'Cozy' },
-  { key: 'just_right', label: 'Just right' },
-  { key: 'too_big', label: 'Too big' },
+  { key: 'cozy', label: 'Turret' },
+  { key: 'just_right', label: 'Keep' },
+  { key: 'too_big', label: 'Castle' },
 ]
 const TENURE = [
   { key: '<2', label: '< 2' },
@@ -20,10 +22,10 @@ export default function AvatarBuilder({ run, patch, onNext }) {
 
   return (
     <section className="screen builder">
-      <h2 className="screen__title">Build your homeowner</h2>
+      <h2 className="screen__title">Forge your hero</h2>
 
       <div className="field">
-        <span className="field__label">Pick a face</span>
+        <span className="field__label">Choose thy hero</span>
         <div className="face-grid">
           {[0, 1, 2, 3, 4, 5].map((i) => (
             <button
@@ -39,7 +41,9 @@ export default function AvatarBuilder({ run, patch, onNext }) {
       </div>
 
       <div className="field">
-        <span className="field__label">Your current mortgage rate</span>
+        <span className="field__label">
+          The enchantment on your hearth (your mortgage rate)
+        </span>
         <div className="rate-readout">{run.rate.toFixed(2)}%</div>
         <input
           className="slider"
@@ -58,7 +62,7 @@ export default function AvatarBuilder({ run, patch, onNext }) {
       </div>
 
       <div className="field">
-        <span className="field__label">People in your home</span>
+        <span className="field__label">Souls in your keep</span>
         <div className="chip-row">
           {HOUSEHOLD.map((h) => {
             const val = h === '5+' ? 5 : h
@@ -77,7 +81,7 @@ export default function AvatarBuilder({ run, patch, onNext }) {
       </div>
 
       <div className="field">
-        <span className="field__label">Your home</span>
+        <span className="field__label">Your stronghold</span>
         <div className="house-row">
           {HOMES.map((h) => (
             <button
@@ -86,7 +90,7 @@ export default function AvatarBuilder({ run, patch, onNext }) {
               aria-pressed={run.homeSize === h.key}
               onClick={() => patch({ homeSize: h.key })}
             >
-              <House size={h.key} px={72} selected={run.homeSize === h.key} />
+              <Castle size={h.key} px={72} selected={run.homeSize === h.key} />
               <span>{h.label}</span>
             </button>
           ))}
@@ -94,7 +98,7 @@ export default function AvatarBuilder({ run, patch, onNext }) {
       </div>
 
       <div className="field">
-        <span className="field__label">Years you've lived there</span>
+        <span className="field__label">Years sworn to this land</span>
         <div className="chip-row">
           {TENURE.map((t) => (
             <button
@@ -111,7 +115,7 @@ export default function AvatarBuilder({ run, patch, onNext }) {
 
       <div className="field">
         <span className="field__label">
-          How much do you want to move in the next few years?
+          How strongly does the road call you onward? (wanting to move)
         </span>
         <div className="heart-row" role="group" aria-label="Move desire, 1 to 5">
           {[1, 2, 3, 4, 5].map((n) => (
@@ -127,7 +131,7 @@ export default function AvatarBuilder({ run, patch, onNext }) {
           ))}
         </div>
         <div className="heart-hint">
-          {run.moveDesire === 1 ? 'staying put' : run.moveDesire === 5 ? 'desperate to go' : ''}
+          {run.moveDesire === 1 ? 'rooted to my land' : run.moveDesire === 5 ? 'desperate to roam' : ''}
         </div>
       </div>
 
@@ -136,7 +140,7 @@ export default function AvatarBuilder({ run, patch, onNext }) {
         disabled={!ready}
         onClick={onNext}
       >
-        {ready ? 'NEXT' : 'PICK ALL THREE ABOVE'}
+        {ready ? 'BEGIN THE QUEST' : 'CHOOSE KEEP, STRONGHOLD & YEARS'}
       </button>
     </section>
   )

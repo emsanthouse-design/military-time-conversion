@@ -14,7 +14,14 @@
   --gold: #f6c945;
   --green: #3ddc84;
   --coral: #ff6b5e;
+  --stone: #7d8aa0; /* castle stone, for the medieval theme accents */
   --pixel: 4px;
+}
+
+/* Deep night-sky gradient over the Realm of Bostonia. */
+body {
+  background:
+    radial-gradient(120% 80% at 50% 0%, #1b3050 0%, var(--navy) 60%) fixed;
 }
 
 * {
@@ -473,13 +480,198 @@ svg.sprite {
   }
 }
 
+/* Medieval-Bostonia theme bits -------------------------------------------- */
+.kicker {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  color: var(--green);
+  margin: 0;
+  max-width: 30ch;
+  line-height: 1.8;
+}
+.screen__sub {
+  margin: -8px 0 0;
+  font-size: 15px;
+  color: var(--paper);
+  opacity: 0.85;
+  max-width: 32ch;
+}
+.title-skyline {
+  width: 100%;
+  max-width: 520px;
+  border-bottom: var(--pixel) solid var(--stone);
+  filter: drop-shadow(0 0 6px #1b3050);
+}
+
+/* Screen transitions: each screen fades + rises on mount. */
+.screen {
+  position: relative;
+  isolation: isolate;
+  animation: screen-in 280ms ease-out both;
+}
+@keyframes screen-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* Starfield ---------------------------------------------------------------- */
+.stars,
+.coin-shower {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.stars__dot {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--paper);
+  opacity: 0.5;
+  animation: twinkle var(--twinkle, 1800ms) steps(2, start) infinite;
+  animation-delay: var(--tdelay, 0ms);
+}
+@keyframes twinkle {
+  50% {
+    opacity: 0.05;
+  }
+}
+
+/* Coin burst (escalator) --------------------------------------------------- */
+.escalator__art {
+  position: relative;
+}
+.coin-burst {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 2;
+}
+.coin-burst__coin {
+  position: absolute;
+  animation: coin-fly 520ms ease-out var(--d, 0ms) both;
+}
+@keyframes coin-fly {
+  0% {
+    transform: translate(0, 0) scale(0.4);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--dx), var(--dy)) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Coin shower (result) ----------------------------------------------------- */
+.coin-shower__coin {
+  position: absolute;
+  top: -24px;
+  animation: coin-fall var(--dur, 2200ms) linear var(--delay, 0ms) infinite;
+}
+@keyframes coin-fall {
+  0% {
+    transform: translateY(-24px) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(105vh) rotate(220deg);
+    opacity: 0.9;
+  }
+}
+
+/* Screen shake on each escalator step ------------------------------------- */
+.shake-on-change {
+  animation: chest-shake 320ms ease-in-out both;
+}
+@keyframes chest-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+}
+
+/* Quest map progress bar --------------------------------------------------- */
+.quest-map {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 10px 8px;
+  background: #0b1622ee;
+  border-bottom: var(--pixel) solid var(--navy-2);
+  backdrop-filter: blur(2px);
+}
+.quest-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  min-width: 56px;
+}
+.quest-node__dot {
+  font-size: 12px;
+  line-height: 1;
+  color: var(--navy-2);
+}
+.quest-node__label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: #5a6577;
+  letter-spacing: 0.5px;
+}
+.quest-node--done .quest-node__dot { color: var(--green); }
+.quest-node--done .quest-node__label { color: #7d8aa0; }
+.quest-node--now .quest-node__dot { color: var(--gold); }
+.quest-node--now .quest-node__label { color: var(--gold); }
+
+/* CRT scanline overlay ----------------------------------------------------- */
+.crt {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0.12) 3px,
+    rgba(0, 0, 0, 0.12) 4px
+  );
+  mix-blend-mode: multiply;
+}
+
 /* Reduced motion ---------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   *,
+  .screen,
   .escalator__art .chest,
+  .shake-on-change,
   .trophy,
   .title-blink {
     animation: none !important;
     transition: none !important;
+  }
+  /* Hide the purely decorative motion layers entirely. */
+  .stars,
+  .coin-shower,
+  .coin-burst {
+    display: none !important;
   }
 }

@@ -5,6 +5,7 @@ import Choice from './screens/Choice.jsx'
 import Escalator from './screens/Escalator.jsx'
 import Barrier from './screens/Barrier.jsx'
 import Result from './screens/Result.jsx'
+import { QuestMap } from './components/Juice.jsx'
 
 // The whole game is six screens advanced by a single step counter. All the data
 // for one run lives in `run`; we POST it once, right after the barrier screen.
@@ -62,8 +63,13 @@ export default function App() {
     setStep(0)
   }
 
+  // The quest map shows on the four interactive journey screens (1-4).
+  const showMap = step >= 1 && step <= 4
+
   return (
     <main className="app">
+      <div className="crt" aria-hidden="true" />
+      {showMap && <QuestMap stage={step} />}
       {step === 0 && <Disclaimer onStart={next} />}
       {step === 1 && (
         <AvatarBuilder run={run} patch={patch} onNext={next} />

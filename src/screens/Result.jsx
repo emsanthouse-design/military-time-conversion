@@ -1,24 +1,26 @@
-import { Trophy } from '../components/Sprites.jsx'
+import { Crown } from '../components/Sprites.jsx'
+import { CoinShower, Stars } from '../components/Juice.jsx'
 
 const fmt = (n) => '$' + Number(n).toLocaleString('en-US')
 
-// Screen 5. Title is assigned from initial choice + flip behavior.
+// Screen 5. Title is assigned from initial choice + flip behavior, reskinned as
+// a hero's epithet. The underlying logic is unchanged.
 function resultFor(run) {
   const { initialChoice, neverFlipped, flipThreshold } = run
   if (initialChoice === 'A') {
     if (neverFlipped) {
-      return { title: 'RATE CLINGER', blurb: 'No chest is big enough.' }
+      return { title: 'THE STEADFAST', blurb: 'No hoard is large enough.' }
     }
-    return { title: 'PRICE HAS A NUMBER', blurb: `You flip at ${fmt(flipThreshold)}.` }
+    return { title: 'EVERY HERO HAS A PRICE', blurb: `Your price: ${fmt(flipThreshold)} in gold.` }
   }
   // Chose B
   if (neverFlipped) {
-    return { title: 'READY MOVER', blurb: "You'd leave for free." }
+    return { title: 'THE WANDERER', blurb: "You'd ride out for free." }
   }
-  return { title: 'BARGAIN HUNTER', blurb: `Your floor is ${fmt(flipThreshold)}.` }
+  return { title: 'THE HAGGLER', blurb: `Your floor: ${fmt(flipThreshold)} in gold.` }
 }
 
-const HOME_LABEL = { cozy: 'Cozy', just_right: 'Just right', too_big: 'Too big' }
+const HOME_LABEL = { cozy: 'Turret', just_right: 'Keep', too_big: 'Castle' }
 const BARRIER_LABEL = {
   rate: 'My mortgage rate',
   costs: 'Costs and fees',
@@ -30,7 +32,7 @@ export default function Result({ run, onRestart }) {
   const { title, blurb } = resultFor(run)
 
   const share = async () => {
-    const text = `I'm a ${title} in Rate Quest. ${blurb} Play this 90-second research game:`
+    const text = `My legend in Rate Quest: ${title}. ${blurb} Take the 90-second quest:`
     const url = window.location.origin
     try {
       if (navigator.share) {
@@ -46,25 +48,27 @@ export default function Result({ run, onRestart }) {
 
   return (
     <section className="screen screen--center result">
-      <Trophy px={150} />
+      <Stars />
+      <CoinShower />
+      <Crown px={150} />
       <h2 className="result__title">{title}</h2>
       <p className="result__blurb">{blurb}</p>
 
       <ul className="result__stats">
         <li>
-          <span>RATE</span>
+          <span>HEARTH RATE</span>
           {run.rate.toFixed(2)}%
         </li>
         <li>
-          <span>HOME</span>
+          <span>STRONGHOLD</span>
           {HOME_LABEL[run.homeSize] || '-'}
         </li>
         <li>
-          <span>MOVE WISH</span>
+          <span>WANDERLUST</span>
           {'♥'.repeat(run.moveDesire)}
         </li>
         <li>
-          <span>BARRIER</span>
+          <span>WHAT BINDS YOU</span>
           {BARRIER_LABEL[run.barrier] || '-'}
         </li>
       </ul>
@@ -73,7 +77,7 @@ export default function Result({ run, onRestart }) {
         SHARE WITH ANOTHER HOMEOWNER
       </button>
       <button className="btn btn--ghost" onClick={onRestart}>
-        PLAY AGAIN
+        NEW QUEST
       </button>
 
       <p className="result__disclosure">

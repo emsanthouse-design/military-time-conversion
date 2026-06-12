@@ -125,16 +125,35 @@ export function House({ size = 'just_right', px = 96, selected = false }) {
   )
 }
 
-// Treasure chest sprite, scaled by the `grow` factor for the escalator animation.
-export function Chest({ px = 140, glow = false }) {
-  const cells = [
+// Dragon's hoard chest. `glow` adds a torch-light aura; `open` lifts the lid and
+// spills gold for the "you struck treasure" moments.
+export function Chest({ px = 140, glow = false, open = false }) {
+  const body = [
     { x: 2, y: 7, w: 12, h: 6, c: '#8a5a1a' }, // body
-    { x: 2, y: 5, w: 12, h: 3, c: '#a86a22' }, // lid
-    { x: 2, y: 7, w: 12, h: 1, c: '#f6c945' }, // gold band
-    { x: 7, y: 8, w: 2, h: 3, c: '#f6c945' }, // lock plate
-    { x: 7, y: 9, w: 2, h: 1, c: '#0d0d0d' }, // keyhole
     { x: 2, y: 12, w: 12, h: 1, c: '#5c3a10' }, // base shadow
+    { x: 2, y: 7, w: 12, h: 1, c: '#f6c945' }, // gold band
   ]
+  // When open, the gold inside is revealed and the lid tips up and back.
+  const treasure = open
+    ? [
+        { x: 4, y: 6, w: 2, h: 2, c: '#ffe27a' },
+        { x: 7, y: 5, w: 2, h: 3, c: '#ffe27a' },
+        { x: 10, y: 6, w: 2, h: 2, c: '#ffe27a' },
+        { x: 6, y: 4, w: 1, h: 1, c: '#fff4c2' },
+        { x: 9, y: 4, w: 1, h: 1, c: '#fff4c2' },
+      ]
+    : []
+  const lid = open
+    ? [
+        { x: 2, y: 2, w: 12, h: 3, c: '#a86a22' },
+        { x: 2, y: 4, w: 12, h: 1, c: '#7a4a12' },
+      ]
+    : [
+        { x: 2, y: 5, w: 12, h: 3, c: '#a86a22' },
+        { x: 7, y: 8, w: 2, h: 3, c: '#f6c945' }, // lock plate
+        { x: 7, y: 9, w: 2, h: 1, c: '#0d0d0d' }, // keyhole
+      ]
+  const cells = [...body, ...treasure, ...lid]
   return (
     <svg
       viewBox="0 0 16 16"
@@ -144,6 +163,112 @@ export function Chest({ px = 140, glow = false }) {
       shapeRendering="crispEdges"
       role="img"
       aria-label="Treasure chest"
+    >
+      {cells.map((r, i) => (
+        <rect key={i} x={r.x} y={r.y} width={r.w} height={r.h} fill={r.c} />
+      ))}
+    </svg>
+  )
+}
+
+// A single gold coin, used for bursts and showers.
+export function Coin({ px = 16 }) {
+  const cells = [
+    { x: 5, y: 4, w: 6, h: 8, c: '#f6c945' },
+    { x: 4, y: 6, w: 1, h: 4, c: '#f6c945' },
+    { x: 11, y: 6, w: 1, h: 4, c: '#f6c945' },
+    { x: 6, y: 5, w: 4, h: 6, c: '#ffe27a' },
+    { x: 7, y: 6, w: 1, h: 4, c: '#b8860b' }, // engraved mark
+  ]
+  return (
+    <svg viewBox="0 0 16 16" width={px} height={px} className="sprite" shapeRendering="crispEdges" aria-hidden="true">
+      {cells.map((r, i) => (
+        <rect key={i} x={r.x} y={r.y} width={r.w} height={r.h} fill={r.c} />
+      ))}
+    </svg>
+  )
+}
+
+// Castle structures of increasing grandeur: cozy = lone turret, just_right = keep,
+// too_big = full castle. Replaces the plain houses with the hero's-journey theme.
+export function Castle({ size = 'just_right', px = 96, selected = false }) {
+  const STONE = '#7d8aa0'
+  const STONE_D = '#5a6577'
+  const ROOF = '#c84b4b'
+  const FLAG = '#3ddc84'
+  const DOOR = '#3a2a18'
+  const WIN = '#f6c945'
+
+  let cells = []
+  if (size === 'cozy') {
+    // A single tall turret.
+    cells = [
+      { x: 6, y: 5, w: 4, h: 10, c: STONE },
+      { x: 6, y: 5, w: 1, h: 10, c: STONE_D },
+      { x: 6, y: 3, w: 1, h: 1, c: STONE }, // crenellations
+      { x: 8, y: 3, w: 1, h: 1, c: STONE },
+      { x: 6, y: 4, w: 4, h: 1, c: STONE },
+      { x: 9, y: 1, w: 1, h: 3, c: '#6b3a1a' }, // flagpole
+      { x: 10, y: 1, w: 2, h: 1, c: FLAG }, // flag
+      { x: 7, y: 7, w: 2, h: 2, c: WIN },
+      { x: 7, y: 11, w: 2, h: 4, c: DOOR },
+    ]
+  } else if (size === 'too_big') {
+    // Full castle: central keep flanked by two towers, wall, gate.
+    cells = [
+      { x: 1, y: 8, w: 14, h: 7, c: STONE }, // wall
+      { x: 1, y: 8, w: 14, h: 1, c: STONE_D },
+      // left tower
+      { x: 1, y: 4, w: 3, h: 5, c: STONE },
+      { x: 1, y: 3, w: 1, h: 1, c: STONE },
+      { x: 3, y: 3, w: 1, h: 1, c: STONE },
+      // right tower
+      { x: 12, y: 4, w: 3, h: 5, c: STONE },
+      { x: 12, y: 3, w: 1, h: 1, c: STONE },
+      { x: 14, y: 3, w: 1, h: 1, c: STONE },
+      // central keep
+      { x: 5, y: 2, w: 6, h: 7, c: STONE },
+      { x: 5, y: 1, w: 1, h: 1, c: STONE },
+      { x: 7, y: 1, w: 1, h: 1, c: STONE },
+      { x: 9, y: 1, w: 1, h: 1, c: STONE },
+      { x: 7, y: 0, w: 1, h: 1, c: '#6b3a1a' }, // flagpole
+      { x: 8, y: 0, w: 2, h: 1, c: FLAG },
+      // windows + gate
+      { x: 2, y: 6, w: 1, h: 1, c: WIN },
+      { x: 13, y: 6, w: 1, h: 1, c: WIN },
+      { x: 7, y: 4, w: 2, h: 2, c: WIN },
+      { x: 7, y: 11, w: 2, h: 4, c: DOOR },
+      { x: 6, y: 11, w: 1, h: 1, c: DOOR },
+      { x: 9, y: 11, w: 1, h: 1, c: DOOR },
+    ]
+  } else {
+    // The keep: one solid stronghold with roof and flag.
+    cells = [
+      { x: 4, y: 6, w: 8, h: 9, c: STONE },
+      { x: 4, y: 6, w: 1, h: 9, c: STONE_D },
+      { x: 4, y: 5, w: 1, h: 1, c: STONE },
+      { x: 6, y: 5, w: 1, h: 1, c: STONE },
+      { x: 8, y: 5, w: 1, h: 1, c: STONE },
+      { x: 10, y: 5, w: 1, h: 1, c: STONE },
+      { x: 3, y: 3, w: 10, h: 3, c: ROOF }, // pitched roof band
+      { x: 4, y: 2, w: 8, h: 1, c: ROOF },
+      { x: 8, y: 0, w: 1, h: 2, c: '#6b3a1a' }, // flagpole
+      { x: 9, y: 0, w: 2, h: 1, c: FLAG },
+      { x: 6, y: 8, w: 2, h: 2, c: WIN },
+      { x: 9, y: 8, w: 1, h: 1, c: WIN },
+      { x: 7, y: 11, w: 2, h: 4, c: DOOR },
+    ]
+  }
+
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      width={px}
+      height={px}
+      className={`sprite ${selected ? 'sprite--selected' : ''}`}
+      shapeRendering="crispEdges"
+      role="img"
+      aria-label={`${size} castle`}
     >
       {cells.map((r, i) => (
         <rect key={i} x={r.x} y={r.y} width={r.w} height={r.h} fill={r.c} />
@@ -172,6 +297,40 @@ export function Shield({ px = 120 }) {
       shapeRendering="crispEdges"
       role="img"
       aria-label="Shield"
+    >
+      {cells.map((r, i) => (
+        <rect key={i} x={r.x} y={r.y} width={r.w} height={r.h} fill={r.c} />
+      ))}
+    </svg>
+  )
+}
+
+// Royal crown for the result screen (replaces the trophy in the medieval theme).
+export function Crown({ px = 160 }) {
+  const GOLD = '#f6c945'
+  const GOLD_D = '#d8a92f'
+  const cells = [
+    { x: 3, y: 9, w: 10, h: 3, c: GOLD }, // band
+    { x: 3, y: 11, w: 10, h: 1, c: GOLD_D },
+    { x: 3, y: 4, w: 1, h: 5, c: GOLD }, // left peak
+    { x: 12, y: 4, w: 1, h: 5, c: GOLD },
+    { x: 7, y: 3, w: 2, h: 6, c: GOLD }, // center peak
+    { x: 5, y: 6, w: 1, h: 3, c: GOLD }, // mid peaks
+    { x: 10, y: 6, w: 1, h: 3, c: GOLD },
+    { x: 3, y: 3, w: 1, h: 1, c: '#ff6b5e' }, // jewels
+    { x: 12, y: 3, w: 1, h: 1, c: '#3ddc84' },
+    { x: 7, y: 2, w: 2, h: 1, c: '#6fb7e0' },
+    { x: 7, y: 10, w: 2, h: 1, c: '#ff6b5e' }, // center gem on band
+  ]
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      width={px}
+      height={px}
+      className="sprite trophy"
+      shapeRendering="crispEdges"
+      role="img"
+      aria-label="Crown"
     >
       {cells.map((r, i) => (
         <rect key={i} x={r.x} y={r.y} width={r.w} height={r.h} fill={r.c} />
