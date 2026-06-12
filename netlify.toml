@@ -1,0 +1,14 @@
+# Netlify build + routing config for Rate Quest.
+# Functions use v2 syntax and declare their own paths (/api/respond, /api/results),
+# so the only redirect we need is the SPA fallback so client routes like /results work.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+# SPA fallback: serve index.html for any non-API, non-function route.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
