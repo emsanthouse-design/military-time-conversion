@@ -603,43 +603,55 @@ svg.sprite {
   80% { transform: translateX(3px); }
 }
 
-/* Quest map progress bar --------------------------------------------------- */
+/* Quest map: slim, unobtrusive single line ------------------------------- */
 .quest-map {
   position: sticky;
   top: 0;
   z-index: 5;
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 4px;
-  flex-wrap: wrap;
+  gap: 10px;
   width: 100%;
-  padding: 10px 8px;
-  background: #0b1622ee;
-  border-bottom: var(--pixel) solid var(--navy-2);
+  padding: 7px 8px;
+  background: #0b1622d9;
+  border-bottom: 2px solid var(--navy-2);
   backdrop-filter: blur(2px);
 }
-.quest-node {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-  min-width: 56px;
+.quest-dots {
+  display: inline-flex;
+  gap: 6px;
 }
-.quest-node__dot {
-  font-size: 12px;
-  line-height: 1;
-  color: var(--navy-2);
+.qdot {
+  width: 7px;
+  height: 7px;
+  background: #3a4558;
 }
-.quest-node__label {
+.qdot--done { background: var(--green); }
+.qdot--now {
+  background: var(--gold);
+  box-shadow: 0 0 0 2px #f6c94533;
+}
+.quest-cur {
   font-family: 'Press Start 2P', monospace;
-  font-size: 8px;
-  color: #5a6577;
+  font-size: 9px;
+  color: var(--gold);
   letter-spacing: 0.5px;
 }
-.quest-node--done .quest-node__dot { color: var(--green); }
-.quest-node--done .quest-node__label { color: #7d8aa0; }
-.quest-node--now .quest-node__dot { color: var(--gold); }
-.quest-node--now .quest-node__label { color: var(--gold); }
+
+/* Move-desire slider readout + castle size hint -------------------------- */
+.move-readout {
+  font-size: 18px;
+  text-align: center;
+  color: var(--gold);
+  font-family: 'Press Start 2P', monospace;
+  line-height: 1.5;
+  min-height: 1.6em;
+}
+.house-pick__hint {
+  font-size: 10px;
+  opacity: 0.65;
+}
 
 /* CRT scanline overlay ----------------------------------------------------- */
 .crt {
