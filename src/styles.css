@@ -355,6 +355,33 @@ svg.sprite {
   font-size: 10px;
   color: var(--coral);
 }
+/* Plain-language translation under the themed card copy. */
+.card__plain {
+  margin: 0;
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.45;
+  color: #b9c4d4;
+  border-top: 2px solid #2a3a4e;
+  padding-top: 8px;
+}
+
+/* Plain-language payoff line that appears after the story text types out. */
+.story__plain {
+  margin: 12px 0 0;
+  padding-top: 10px;
+  border-top: 2px solid #2a3a4e;
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.5;
+  color: #b9c4d4;
+  text-align: left;
+}
+.story__plain-tag {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--green);
+}
 
 /* Escalator --------------------------------------------------------------- */
 .escalator__flourish {

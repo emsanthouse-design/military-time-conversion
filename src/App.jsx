@@ -80,9 +80,10 @@ export default function App() {
           kicker="Chapter I"
           title="Bound to your hearth"
           lines={[
-            'In the Realm of Bostonia, a powerful enchantment binds every homeowner to their keep: a low, locked rate.',
-            'But the road is long, and your tale is just beginning. First, hero... who are you?',
+            'In the Realm of Bostonia, every homeowner is bound to their keep by a powerful enchantment: a low, locked rate.',
+            'Leave, and the spell breaks forever. Yet still the road calls... First, hero, who are you?',
           ]}
+          plain="Mortgage rates are much higher now, so moving usually means trading your low rate for a worse one."
           cta="FORGE MY HERO"
           onNext={next}
         />
@@ -96,9 +97,10 @@ export default function App() {
           kicker="Chapter II"
           title="A herald arrives"
           lines={[
-            'Word of your keep has spread across the realm. A herald gallops to your gate with two offers, each meant to lure you onward to a new home.',
-            'Weigh them well. Only one path can be yours.',
+            'Word of your keep has spread across the realm. A herald rides to your gate bearing two offers, each meant to coax you toward a new home.',
+            'Weigh them well, hero. Only one path can be yours.',
           ]}
+          plain="You're about to choose between keeping your mortgage rate or taking a cash bonus to move."
           cta="HEAR THE OFFERS"
           onNext={next}
         />
@@ -121,13 +123,18 @@ export default function App() {
           lines={
             choseRate
               ? [
-                  'You chose to guard your hearth enchantment and carry it onward. But a treasure-merchant will not take no for an answer.',
-                  'With each refusal, the hoard he offers grows larger. How large before you let the enchantment go?',
+                  'You chose to guard your enchantment and carry it onward. But a treasure-merchant will not take no for an answer.',
+                  'With every refusal, the gold he offers climbs higher. How high before you let your rate go?',
                 ]
               : [
-                  'You reached for the gold. But the dragon guarding it stirs, and with every breath the hoard shrinks.',
-                  'How little gold before you turn back and keep your enchantment instead?',
+                  'You reached for the gold. But the dragon guarding it stirs, and the hoard shrinks with every breath.',
+                  'How little must remain before you turn back and keep your rate instead?',
                 ]
+          }
+          plain={
+            choseRate
+              ? 'How big a cash bonus would it take for you to give up your current mortgage rate?'
+              : "How small a cash bonus before you'd rather just keep your current rate?"
           }
           cta="FACE THE TRIAL"
           onNext={next}
@@ -150,9 +157,10 @@ export default function App() {
           kicker="Chapter IV"
           title="The Oracle waits"
           lines={[
-            'Your trial is done. At the journey\'s end sits the Oracle, who sees past gold and glory.',
-            '"Tell me true," she says. "Beyond all offers, what truly keeps you home?"',
+            'Your trial is done. At the road\'s end sits the Oracle, who sees past gold and glory.',
+            '"Tell me true," she says. "Beyond every offer, what truly keeps you home?"',
           ]}
+          plain="What's the real reason you haven't moved?"
           cta="SPEAK TO THE ORACLE"
           onNext={next}
         />

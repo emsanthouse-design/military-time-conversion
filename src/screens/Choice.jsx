@@ -19,6 +19,9 @@ export default function Choice({ onChoose }) {
             Carry your hearth enchantment to your next stronghold. Same rate, new
             castle.
           </p>
+          <p className="card__plain">
+            Keep your current mortgage rate when you buy your next home.
+          </p>
           <span className="card__cta">TAKE THIS PATH</span>
         </button>
 
@@ -28,7 +31,11 @@ export default function Choice({ onChoose }) {
           </div>
           <h3 className="card__name">DRAGON'S HOARD</h3>
           <p className="card__copy">
-            $10,000 in gold toward your next stronghold if you sell.
+            A hoard of $10,000 in gold toward your next stronghold, if you sell.
+          </p>
+          <p className="card__plain">
+            A one-time $10,000 cash bonus toward your next home if you sell this
+            one.
           </p>
           <span className="card__cta">TAKE THIS PATH</span>
         </button>

@@ -9,7 +9,7 @@ const prefersReducedMotion = () =>
 // A full-screen narrative beat between gameplay stages. Classic RPG typewriter
 // text primes the upcoming decision. First tap reveals all text; once fully
 // shown, the button advances. Reduced motion shows the full text immediately.
-export default function StoryCard({ art, kicker, title, lines, cta = 'CONTINUE', onNext }) {
+export default function StoryCard({ art, kicker, title, lines, plain, cta = 'CONTINUE', onNext }) {
   const full = lines.join('\n')
   const reduce = prefersReducedMotion()
   const [shown, setShown] = useState(reduce ? full.length : 0)
@@ -51,6 +51,11 @@ export default function StoryCard({ art, kicker, title, lines, cta = 'CONTINUE',
           {full.slice(0, shown)}
           {!done && <span className="story__caret">▌</span>}
         </p>
+        {done && plain && (
+          <p className="story__plain">
+            <span className="story__plain-tag">In plain terms:</span> {plain}
+          </p>
+        )}
       </div>
       <button className="btn btn--primary btn--big" onClick={handle}>
         {done ? cta : 'SKIP ▶'}
