@@ -127,7 +127,7 @@ export default function App() {
                   'With every refusal, the gold he offers climbs higher. How high before you let your rate go?',
                 ]
               : [
-                  'You reached for the gold. But the dragon guarding it stirs, and the hoard shrinks with every breath.',
+                  'You reached for the gold. But the dragon guarding it stirs, and the treasure shrinks with every breath.',
                   'How little must remain before you turn back and keep your rate instead?',
                 ]
           }

@@ -14,16 +14,16 @@ import { CoinBurst, Stars } from '../components/Juice.jsx'
 
 const GROW_STEPS = [25000, 50000, 75000, 100000, 150000]
 const GROW_FLOURISH = [
-  'The hoard grows...',
-  'The hoard GLOWS...',
-  'The hoard RUMBLES...',
-  'The hoard OVERFLOWS...',
-  'The hoard is the stuff of LEGEND...',
+  'The treasure grows...',
+  'The treasure GLOWS...',
+  'The treasure RUMBLES...',
+  'The treasure OVERFLOWS...',
+  'The treasure is the stuff of LEGEND...',
 ]
 
 const SHRINK_STEPS = [7500, 5000, 2500, 1000, 0]
 const SHRINK_FLOURISH = [
-  'The hoard dwindles...',
+  'The treasure dwindles...',
   'The gold fades...',
   'The glow dims...',
   'Almost spent...',

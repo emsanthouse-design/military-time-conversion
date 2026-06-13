@@ -9,7 +9,7 @@ function resultFor(run) {
   const { initialChoice, neverFlipped, flipThreshold } = run
   if (initialChoice === 'A') {
     if (neverFlipped) {
-      return { title: 'THE STEADFAST', blurb: 'No hoard is large enough.' }
+      return { title: 'THE STEADFAST', blurb: 'No treasure is large enough.' }
     }
     return { title: 'EVERY HERO HAS A PRICE', blurb: `Your price: ${fmt(flipThreshold)} in gold.` }
   }

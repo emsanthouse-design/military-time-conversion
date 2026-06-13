@@ -29,9 +29,9 @@ export default function Choice({ onChoose }) {
           <div className="card__art">
             <Chest px={120} glow />
           </div>
-          <h3 className="card__name">DRAGON'S HOARD</h3>
+          <h3 className="card__name">TREASURE CHEST</h3>
           <p className="card__copy">
-            A hoard of $10,000 in gold toward your next stronghold, if you sell.
+            A chest of $10,000 in gold toward your next stronghold, if you sell.
           </p>
           <p className="card__plain">
             A one-time $10,000 cash bonus toward your next home if you sell this
