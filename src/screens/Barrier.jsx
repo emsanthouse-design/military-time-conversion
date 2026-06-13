@@ -9,6 +9,7 @@ const OPTIONS = [
   { key: 'rate', icon: '✦', label: 'My mortgage rate' },
   { key: 'costs', icon: '⚖', label: 'The costs and fees of selling' },
   { key: 'hassle', icon: '⛬', label: 'The hassle of moving' },
+  { key: 'inventory', icon: '⊘', label: "Nothing suitable on the market to move to" },
   { key: 'dont_want', icon: '⌂', label: "Honestly, I don't want to move" },
 ]
 

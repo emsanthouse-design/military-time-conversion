@@ -48,8 +48,9 @@ private dashboard that turns responses into segmented analysis.
    breaks.
 
 4. **The barrier (the kill-condition).** One forced question: what's *really*
-   keeping you in your home — the rate, the costs/fees, the hassle, or "honestly,
-   I don't want to move." That last answer is the kill-condition: if locked-in
+   keeping you in your home — the rate, the costs/fees, the hassle, nothing
+   suitable on the market to move to, or "honestly, I don't want to move." The
+   last answer is the kill-condition: if locked-in
    movers mostly *don't want to move*, then no price fixes a preference, and the
    whole premise is challenged. We surface it, not bury it.
 

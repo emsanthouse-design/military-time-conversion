@@ -14,6 +14,7 @@ const BARRIERS = [
   { key: 'rate', label: 'My mortgage rate' },
   { key: 'costs', label: 'Costs and fees of selling' },
   { key: 'hassle', label: 'The hassle of moving' },
+  { key: 'inventory', label: 'Nothing suitable on the market' },
   { key: 'dont_want', label: "Honestly, I don't want to move" },
 ]
 // Plausible lender budget band overlaid on the flip-threshold histogram.

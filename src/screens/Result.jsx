@@ -25,6 +25,7 @@ const BARRIER_LABEL = {
   rate: 'My mortgage rate',
   costs: 'Costs and fees',
   hassle: 'The hassle',
+  inventory: 'Nothing to buy',
   dont_want: "Don't want to move",
 }
 
