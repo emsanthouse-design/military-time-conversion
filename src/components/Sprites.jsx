@@ -305,6 +305,49 @@ export function Shield({ px = 120 }) {
   )
 }
 
+// A rolled parchment scroll, for the herald's-message story beat.
+export function Scroll({ px = 120 }) {
+  const PARCH = '#f0e2bd'
+  const ROLL = '#cdb88a'
+  const INK = '#9c8a5a'
+  const cells = [
+    { x: 4, y: 3, w: 8, h: 10, c: PARCH },
+    { x: 3, y: 2, w: 10, h: 2, c: ROLL },
+    { x: 3, y: 12, w: 10, h: 2, c: ROLL },
+    { x: 5, y: 5, w: 6, h: 1, c: INK },
+    { x: 5, y: 7, w: 6, h: 1, c: INK },
+    { x: 5, y: 9, w: 4, h: 1, c: INK },
+  ]
+  return (
+    <svg viewBox="0 0 16 16" width={px} height={px} className="sprite" shapeRendering="crispEdges" role="img" aria-label="Scroll">
+      {cells.map((r, i) => (
+        <rect key={i} x={r.x} y={r.y} width={r.w} height={r.h} fill={r.c} />
+      ))}
+    </svg>
+  )
+}
+
+// The Oracle's crystal orb on a stand.
+export function Orb({ px = 120 }) {
+  const cells = [
+    { x: 5, y: 12, w: 6, h: 2, c: '#6b3a1a' }, // base
+    { x: 4, y: 11, w: 1, h: 1, c: '#6b3a1a' },
+    { x: 11, y: 11, w: 1, h: 1, c: '#6b3a1a' },
+    { x: 5, y: 4, w: 6, h: 7, c: '#6fb7e0' }, // orb
+    { x: 4, y: 6, w: 1, h: 3, c: '#6fb7e0' },
+    { x: 11, y: 6, w: 1, h: 3, c: '#6fb7e0' },
+    { x: 6, y: 5, w: 2, h: 2, c: '#cfeefc' }, // highlight
+    { x: 8, y: 8, w: 1, h: 1, c: '#ffffff' }, // sparkle
+  ]
+  return (
+    <svg viewBox="0 0 16 16" width={px} height={px} className="sprite chest--glow" shapeRendering="crispEdges" role="img" aria-label="Crystal orb">
+      {cells.map((r, i) => (
+        <rect key={i} x={r.x} y={r.y} width={r.w} height={r.h} fill={r.c} />
+      ))}
+    </svg>
+  )
+}
+
 // Royal crown for the result screen (replaces the trophy in the medieval theme).
 export function Crown({ px = 160 }) {
   const GOLD = '#f6c945'

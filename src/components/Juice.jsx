@@ -71,20 +71,3 @@ export function Stars({ count = 26 }) {
   )
 }
 
-// The quest map: a slim single-line progress indicator. Five small dots plus
-// the current stage name, so it stays out of the way of the actual content.
-const STAGES = ['Hero', 'Path', 'Trial', 'Truth', 'Legend']
-export function QuestMap({ stage }) {
-  return (
-    <div className="quest-map" role="img" aria-label={`Quest stage ${stage} of 5: ${STAGES[stage - 1]}`}>
-      <span className="quest-dots" aria-hidden="true">
-        {STAGES.map((label, i) => {
-          const n = i + 1
-          const state = n < stage ? 'done' : n === stage ? 'now' : 'todo'
-          return <span key={label} className={`qdot qdot--${state}`} />
-        })}
-      </span>
-      <span className="quest-cur" aria-hidden="true">{STAGES[stage - 1]}</span>
-    </div>
-  )
-}

@@ -603,40 +603,53 @@ svg.sprite {
   80% { transform: translateX(3px); }
 }
 
-/* Quest map: slim, unobtrusive single line ------------------------------- */
-.quest-map {
-  position: sticky;
-  top: 0;
-  z-index: 5;
+/* Story cards: narrative beats between stages ---------------------------- */
+.story {
+  gap: 18px;
+}
+.story__art {
+  height: 130px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  width: 100%;
-  padding: 7px 8px;
-  background: #0b1622d9;
-  border-bottom: 2px solid var(--navy-2);
-  backdrop-filter: blur(2px);
+  animation: float 2.4s ease-in-out infinite;
 }
-.quest-dots {
-  display: inline-flex;
-  gap: 6px;
-}
-.qdot {
-  width: 7px;
-  height: 7px;
-  background: #3a4558;
-}
-.qdot--done { background: var(--green); }
-.qdot--now {
-  background: var(--gold);
-  box-shadow: 0 0 0 2px #f6c94533;
-}
-.quest-cur {
+.story__kicker {
   font-family: 'Press Start 2P', monospace;
   font-size: 9px;
+  color: var(--coral);
+  letter-spacing: 1px;
+  margin: 0;
+}
+.story__title {
+  font-size: 17px;
   color: var(--gold);
-  letter-spacing: 0.5px;
+  margin: 0;
+  max-width: 22ch;
+}
+.story__panel {
+  background: var(--navy-2);
+  box-shadow: 0 0 0 var(--pixel) var(--stone);
+  padding: 18px 16px;
+  max-width: 42ch;
+  width: 100%;
+  min-height: 7.5em;
+}
+.story__text {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: left;
+  white-space: pre-line;
+}
+.story__caret {
+  color: var(--gold);
+  animation: blink 0.8s steps(2, start) infinite;
+}
+@keyframes float {
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
 /* Move-desire slider readout + castle size hint -------------------------- */
